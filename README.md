@@ -1,12 +1,9 @@
 # Grão Mineiro - Loja de Cafés Especiais ☕
 
-Trabalho em trio da disciplina de **Desenvolvimento Web** (Prof.ª Janainny Sena).
+Trabalho da disciplina de **Desenvolvimento Web** (Prof.ª Janainny Sena).
 Homepage de comércio eletrônico de uma loja de cafés, feita com **HTML, CSS e JavaScript puro**.
 
-**Integrantes:**
-- Nome 1
-- Nome 2
-- Nome 3
+**Aluno:** Eduarte Amaral França Pinheiro
 
 ## Como abrir
 
