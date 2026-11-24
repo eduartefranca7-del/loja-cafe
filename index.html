@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grão Mineiro - Loja de Cafés Especiais</title>
+    <!-- Fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== BARRA DE AVISO (frete grátis) ===== -->
+    <div id="barra-aviso">
+        <div class="container">
+            <span class="aviso-item">🚚 <strong>Frete grátis</strong> em compras acima de R$ 150</span>
+            <span class="aviso-item">💳 Até 3x sem juros</span>
+            <span class="aviso-item">☕ Torra fresca toda semana</span>
+        </div>
+    </div>
+
+    <!-- ===== CABEÇALHO ===== -->
+    <header id="topo">
+        <div class="container">
+            <a href="#inicio" class="logo">
+                <img src="img/logo.svg" alt="Logo da Grão Mineiro">
+                <span>Grão Mineiro</span>
+            </a>
+
+            <!-- Lista não ordenada usada como menu -->
+            <nav id="menu">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                    <li><a href="#tabela-precos">Preços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="#carrinho" class="link-carrinho">🛒 Carrinho <span id="contador-carrinho">0</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== BANNER ===== -->
+    <section id="inicio" class="banner">
+        <div class="container banner-conteudo">
+            <span class="banner-tag">Cafés especiais do Sul de Minas</span>
+            <h1>O café que você merece, <br>direto da fazenda.</h1>
+            <p>Grãos selecionados, acessórios para preparo e cápsulas. Tudo entregue na sua casa.</p>
+            <div class="banner-botoes">
+                <a href="#produtos" class="botao">Ver produtos</a>
+                <a href="#sobre" class="botao botao-contorno">Conheça a loja</a>
+            </div>
+
+            <!-- Destaque do frete grátis -->
+            <div class="destaque-frete">
+                <span class="destaque-icone">🚚</span>
+                <div>
+                    <strong>Frete grátis</strong>
+                    <span>em compras acima de R$ 150,00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUTOS ===== -->
+    <section id="produtos">
+        <div class="container">
+            <div class="cabecalho-secao">
+                <span class="subtitulo">Loja</span>
+                <h2 class="titulo-secao">Nossos Produtos</h2>
+            </div>
+
+            <!-- Os cards abaixo são gerados pelo JavaScript (js/script.js),
+                 a partir do array "produtos" -->
+            <div id="lista-produtos"></div>
+        </div>
+    </section>
+
+    <!-- ===== SOBRE (elemento flutuante) ===== -->
+    <section id="sobre">
+        <div class="container clearfix">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Hario_V60_and_Buono_kettle.jpg/500px-Hario_V60_and_Buono_kettle.jpg"
+                 alt="Preparo de café no coador Hario V60" class="imagem-flutuante">
+            <span class="subtitulo">Sobre nós</span>
+            <h2 class="titulo-secao">Por que comprar com a gente?</h2>
+            <p>Trabalhamos com pequenos produtores e pagamos um preço justo pelo café. Cada pacote
+               tem a data da torra e a origem do grão. Também vendemos os acessórios que usamos
+               aqui na loja para preparar o café.</p>
+
+            <!-- Lista ordenada -->
+            <ol class="lista-vantagens">
+                <li>Torra feita toda semana</li>
+                <li>Entrega para todo o Brasil</li>
+                <li>Pagamento por Pix, boleto ou cartão</li>
+                <li>Troca garantida em até 7 dias</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== TABELA DE PREÇOS ===== -->
+    <section id="tabela-precos">
+        <div class="container">
+            <div class="cabecalho-secao">
+                <span class="subtitulo">Compare</span>
+                <h2 class="titulo-secao">Tabela de Preços</h2>
+            </div>
+            <div class="caixa-tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Tamanho</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Café Especial em Grãos</td><td>Café</td><td>500 g</td><td>R$ 42,90</td></tr>
+                        <tr><td>Cápsulas Nespresso Original</td><td>Cápsulas</td><td>10 unidades</td><td>R$ 29,90</td></tr>
+                        <tr><td>Kit Cápsulas Sortidas</td><td>Cápsulas</td><td>50 unidades</td><td>R$ 129,90</td></tr>
+                        <tr><td>Cafeteira Bialetti Moka Express</td><td>Acessório</td><td>6 xícaras</td><td>R$ 249,90</td></tr>
+                        <tr><td>Coador Hario V60</td><td>Acessório</td><td>Tamanho 02</td><td>R$ 89,90</td></tr>
+                        <tr><td>Prensa Francesa Inox</td><td>Acessório</td><td>1 litro</td><td>R$ 159,90</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CARRINHO ===== -->
+    <section id="carrinho">
+        <div class="container">
+            <div class="cabecalho-secao">
+                <span class="subtitulo">Sua compra</span>
+                <h2 class="titulo-secao">Meu Carrinho</h2>
+            </div>
+
+            <div class="carrinho-grid">
+                <div class="caixa-tabela">
+                    <table id="tabela-carrinho">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                                <th>Qtd.</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="itens-carrinho">
+                            <!-- preenchido pelo JavaScript -->
+                        </tbody>
+                    </table>
+                    <p id="carrinho-vazio">Seu carrinho está vazio. <a href="#produtos">Escolha um produto</a></p>
+                </div>
+
+                <aside class="resumo">
+                    <h3>Resumo do pedido</h3>
+
+                    <!-- Barra que mostra quanto falta para o frete grátis -->
+                    <div class="frete-progresso">
+                        <p id="texto-frete">Adicione produtos para ganhar frete grátis.</p>
+                        <div class="barra"><div id="barra-frete"></div></div>
+                    </div>
+
+                    <!-- Formulário do cupom de desconto -->
+                    <form id="form-cupom">
+                        <label for="campo-cupom">Cupom de desconto</label>
+                        <div class="cupom-linha">
+                            <input type="text" id="campo-cupom" placeholder="Ex.: CAFE10">
+                            <button type="submit" class="botao botao-pequeno">Aplicar</button>
+                        </div>
+                        <p id="mensagem-cupom"></p>
+                        <small>Cupons para teste: CAFE10, PRIMEIRA20, FRETEGRATIS</small>
+                    </form>
+
+                    <div class="valores">
+                        <p>Subtotal <strong id="valor-subtotal">R$ 0,00</strong></p>
+                        <p>Desconto <strong id="valor-desconto">- R$ 0,00</strong></p>
+                        <p>Frete <strong id="valor-frete">R$ 0,00</strong></p>
+                        <p class="total">Total <strong id="valor-total">R$ 0,00</strong></p>
+                    </div>
+                    <button id="botao-comprar" class="botao botao-comprar">Finalizar compra</button>
+                    <p id="mensagem-compra"></p>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTATO (formulário) ===== -->
+    <section id="contato">
+        <div class="container">
+            <div class="cabecalho-secao">
+                <span class="subtitulo">Atendimento</span>
+                <h2 class="titulo-secao">Fale Conosco</h2>
+            </div>
+            <form id="form-contato">
+                <div class="linha-form">
+                    <div>
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome">
+                    </div>
+                    <div>
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com">
+                    </div>
+                </div>
+
+                <label for="assunto">Assunto</label>
+                <select id="assunto" name="assunto">
+                    <option value="duvida">Dúvida</option>
+                    <option value="pedido">Meu pedido</option>
+                    <option value="sugestao">Sugestão</option>
+                </select>
+
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem"></textarea>
+
+                <label class="checkbox">
+                    <input type="checkbox" id="newsletter"> Quero receber promoções por e-mail
+                </label>
+
+                <button type="submit" class="botao">Enviar mensagem</button>
+                <p id="mensagem-contato"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== RODAPÉ ===== -->
+    <footer>
+        <div class="container rodape-grid">
+            <div>
+                <p class="rodape-logo">Grão Mineiro</p>
+                <p>Cafés especiais e acessórios desde 2026.</p>
+            </div>
+            <ul class="links-rodape">
+                <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://www.whatsapp.com" target="_blank">WhatsApp</a></li>
+                <li><a href="mailto:contato@graomineiro.com.br">contato@graomineiro.com.br</a></li>
+            </ul>
+        </div>
+        <p class="creditos">&copy; 2026 Grão Mineiro - Trabalho de Desenvolvimento Web.
+           Fotos: <a href="https://commons.wikimedia.org" target="_blank">Wikimedia Commons</a> (licenças livres, ver README).</p>
+    </footer>
+
+    <!-- Botão fixo para voltar ao topo (posicionamento fixed) -->
+    <a href="#inicio" id="voltar-topo" title="Voltar ao topo">&uarr;</a>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
