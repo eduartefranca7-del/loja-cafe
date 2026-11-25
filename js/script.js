@@ -328,17 +328,17 @@ function atualizarCarrinho() {
         const subtotalItem = item.preco * item.quantidade;
         linhas += `
             <tr>
-                <td>${item.nome}</td>
-                <td>${formatarMoeda(item.preco)}</td>
-                <td>
+                <td class="col-produto" data-rotulo="Produto">${item.nome}</td>
+                <td data-rotulo="Preço">${formatarMoeda(item.preco)}</td>
+                <td data-rotulo="Quantidade">
                     <div class="controle-qtd">
                         <button class="botao-qtd" onclick="alterarQuantidade(${item.id}, -1)">-</button>
                         <span>${item.quantidade}</span>
                         <button class="botao-qtd" onclick="alterarQuantidade(${item.id}, 1)">+</button>
                     </div>
                 </td>
-                <td>${formatarMoeda(subtotalItem)}</td>
-                <td><button class="botao-remover" onclick="removerDoCarrinho(${item.id})">Remover</button></td>
+                <td data-rotulo="Subtotal">${formatarMoeda(subtotalItem)}</td>
+                <td class="col-remover"><button class="botao-remover" onclick="removerDoCarrinho(${item.id})">Remover</button></td>
             </tr>
         `;
     }

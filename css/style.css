@@ -789,6 +789,8 @@ section {
 }
 
 .caixa-tabela {
+    max-width: 100%;
+    overflow-x: auto; /* se a tabela não couber, rola para o lado em vez de cortar */
     background-color: var(--fundo);
     border: 1px solid var(--borda);
     border-radius: var(--raio);
@@ -1212,6 +1214,23 @@ footer h4 {
     display: none; /* o JavaScript mostra quando rolar a página */
 }
 
+/* Evita que qualquer coisa passe da largura da tela */
+body {
+    overflow-x: clip;
+}
+
+td, th {
+    word-break: normal;
+}
+
+#tabela-carrinho td {
+    white-space: nowrap;
+}
+
+#tabela-carrinho td.col-produto {
+    white-space: normal;
+}
+
 /* ---------- Responsivo (tablet e celular) ---------- */
 @media (max-width: 1050px) {
     #menu {
@@ -1288,5 +1307,136 @@ footer h4 {
     th, td {
         padding: 10px 8px;
         font-size: 13px;
+    }
+
+    /* Tabela de preços: esconde a coluna "Categoria" para caber na tela */
+    #tabela-precos th:nth-child(2),
+    #tabela-precos td:nth-child(2) {
+        display: none;
+    }
+
+    /* Carrinho no celular: cada produto vira um "card" em vez de uma linha */
+    #tabela-carrinho thead {
+        display: none;
+    }
+
+    #tabela-carrinho,
+    #tabela-carrinho tbody,
+    #tabela-carrinho tr,
+    #tabela-carrinho td {
+        display: block;
+        width: 100%;
+    }
+
+    #tabela-carrinho tr {
+        position: relative;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--borda);
+    }
+
+    #tabela-carrinho tr:last-child {
+        border-bottom: none;
+    }
+
+    #tabela-carrinho td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border: none;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    /* Mostra o nome da coluna antes do valor (vem do atributo data-rotulo) */
+    #tabela-carrinho td[data-rotulo]::before {
+        content: attr(data-rotulo);
+        font-weight: 400;
+        color: var(--cinza);
+    }
+
+    #tabela-carrinho td.col-produto {
+        font-size: 15px;
+        font-weight: 600;
+        padding-right: 80px;
+        text-align: left;
+    }
+
+    #tabela-carrinho td.col-produto::before {
+        display: none;
+    }
+
+    #tabela-carrinho td.col-remover {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        width: auto;
+        padding: 0;
+    }
+
+    .resumo {
+        position: static;
+        padding: 20px;
+    }
+
+    .cupom-linha {
+        flex-wrap: wrap;
+    }
+
+    .cupom-linha input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    #form-contato {
+        padding: 22px;
+    }
+
+    .destaque-frete {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .banner-numeros {
+        gap: 20px;
+    }
+
+    .titulo-secao {
+        font-size: 30px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+}
+
+/* Celulares bem pequenos (até 380px) */
+@media (max-width: 380px) {
+    #topo .container {
+        gap: 10px;
+    }
+
+    .logo img {
+        width: 36px;
+    }
+
+    .logo span {
+        font-size: 18px;
+    }
+
+    #campo-busca {
+        width: 100px;
+        padding: 8px 12px;
+    }
+
+    .link-carrinho {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .banner h1 {
+        font-size: 30px;
     }
 }
