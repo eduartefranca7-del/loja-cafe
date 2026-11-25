@@ -79,11 +79,3 @@ As fotos são reais e foram tiradas do [Wikimedia Commons](https://commons.wikim
 | [Coador Hario V60](https://commons.wikimedia.org/wiki/File:Hario_V60_dripper_(30519007832).jpg) | Olgierd Rudak | CC BY 2.0 |
 | [Prensa francesa inox](https://commons.wikimedia.org/wiki/File:Stainless_steel_french_press.png) | Shisma | CC BY 4.0 |
 | [Hario V60 e chaleira Buono](https://commons.wikimedia.org/wiki/File:Hario_V60_and_Buono_kettle.jpg) (seção Sobre) | Matt Wunderle | CC BY 2.0 |
-
-## Como publicar no GitHub
-
-1. Crie uma conta em https://github.com/?locale=pt-br e clique em **New repository** (ex.: `loja-cafe`).
-2. Na página do repositório, clique em **Add file → Upload files** e arraste todo o conteúdo desta pasta (`index.html`, `css`, `js`, `img`, `README.md`).
-3. Clique em **Commit changes**.
-4. (Opcional) Para o site ficar online: **Settings → Pages → Branch: main → Save**. O link fica `https://SEU-USUARIO.github.io/loja-cafe/`.
-5. Envie o link do repositório para a professora.
