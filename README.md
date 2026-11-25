@@ -25,8 +25,8 @@ loja-cafe/
 | Requisito | Onde está |
 |---|---|
 | Imagem | Logo no cabeçalho, fotos dos produtos e foto da seção "Por que comprar com a gente?" |
-| Listas | Menu (`<ul>`), vantagens (`<ol>`) e links do rodapé (`<ul>`) |
-| Formulários | Formulário de cupom e formulário "Fale Conosco" (input, select, textarea, checkbox) |
+| Listas | Menu e benefícios (`<ul>`), nossa história (`<ol>`) e links do rodapé (`<ul>`) |
+| Formulários | Busca no topo, formulário de cupom e formulário "Fale Conosco" (input, select, textarea, checkbox) |
 | Tabelas | Tabela de preços e tabela do carrinho |
 | Links | Menu com âncoras (`#produtos`, `#carrinho`...), links externos e `mailto:` no rodapé |
 
@@ -40,8 +40,8 @@ loja-cafe/
 | Modelo de caixa | `margin`, `padding`, `width`, `box-sizing: border-box` |
 | Elementos flutuantes | Foto com `float: right` na seção "Sobre nós" + `clearfix` |
 | Formatação de links | `:hover` no menu e no rodapé, `text-decoration`, `:visited` |
-| Posicionamento | `sticky` (cabeçalho e resumo do carrinho), `relative`/`absolute` (etiqueta de desconto e linha do menu), `fixed` (botão voltar ao topo) |
-| Extra (layout moderno) | Variáveis CSS (`:root`), Flexbox, CSS Grid, `transition`, `@media` para celular, fontes do Google Fonts |
+| Posicionamento | `sticky` (cabeçalho e resumo do carrinho), `relative`/`absolute` (etiquetas dos produtos, contador do carrinho, destaque do frete grátis), `fixed` (aviso de produto adicionado e botão voltar ao topo) |
+| Extra (layout moderno) | Variáveis CSS (`:root`), Flexbox, CSS Grid, `transition`, animação `@keyframes` (faixa rolando), `@media` para celular, fontes do Google Fonts |
 
 ### 3. JavaScript
 | Requisito | Onde está |
@@ -56,6 +56,13 @@ loja-cafe/
 | Estruturas de repetição | `for`, `for...of`, `while` e `forEach` |
 | Tipos de dados | string, number, boolean, null, object e array (mostrados com `typeof` no console) |
 | Arrays | `produtos`, `cupons` e `carrinho` (com `push`, `splice`, `filter`, `find`) |
+
+### Recursos extras em JavaScript
+- **Filtro por categoria** (Cafés, Cápsulas, Acessórios) e **busca** de produtos enquanto digita (ignora acentos).
+- **Avaliações com estrelas** geradas com `for`, e **depoimentos** gerados a partir de um array.
+- **Preço no Pix** (5% off) e **parcelamento em 3x** calculados para cada produto.
+- **Perguntas frequentes** que abrem e fecham ao clicar (acordeão).
+- **Aviso** na tela quando um produto é adicionado ao carrinho.
 
 ### 4. Desafio - Projeto Cart
 - **Cupom de desconto:** digite o cupom no carrinho e clique em "Aplicar".

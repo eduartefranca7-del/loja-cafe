@@ -7,6 +7,8 @@
 // ---------- VARIÁVEIS E TIPOS DE DADOS ----------
 const NOME_LOJA = "Grão Mineiro";      // string
 const VALOR_FRETE = 15.0;              // number
+const DESCONTO_PIX = 5;                // porcentagem de desconto no Pix
+const PARCELAS = 3;                    // parcelas sem juros
 const FRETE_GRATIS_A_PARTIR = 150;     // number
 let cupomAplicado = null;              // null (nenhum cupom ainda)
 let compraFinalizada = false;          // boolean
@@ -16,22 +18,22 @@ let compraFinalizada = false;          // boolean
 // As fotos são reais e vêm do Wikimedia Commons (licenças livres - ver README)
 const URL_FOTOS = "https://upload.wikimedia.org/wikipedia/commons/thumb/";
 const produtos = [
-    { id: 1, nome: "Café Especial em Grãos", categoria: "Café", preco: 42.90, precoAntigo: null,
+    { id: 1, nota: 4.9, avaliacoes: 128, nome: "Café Especial em Grãos", categoria: "Café", preco: 42.90, precoAntigo: null,
       imagem: URL_FOTOS + "0/0b/A_bag_of_coffee_J1.jpg/500px-A_bag_of_coffee_J1.jpg",
       descricao: "Grãos 100% arábica do Sul de Minas, torra média. Pacote de 500 g.", promocao: false },
-    { id: 2, nome: "Cápsulas Nespresso Original", categoria: "Cápsulas", preco: 29.90, precoAntigo: 34.90,
+    { id: 2, nota: 4.8, avaliacoes: 342, nome: "Cápsulas Nespresso Original", categoria: "Cápsulas", preco: 29.90, precoAntigo: 34.90,
       imagem: URL_FOTOS + "f/f8/Nespresso_capsules.jpg/500px-Nespresso_capsules.jpg",
       descricao: "Caixa com 10 cápsulas de alumínio. Intensidade 8.", promocao: true },
-    { id: 3, nome: "Kit Cápsulas Sortidas", categoria: "Cápsulas", preco: 129.90, precoAntigo: null,
+    { id: 3, nota: 4.7, avaliacoes: 76, nome: "Kit Cápsulas Sortidas", categoria: "Cápsulas", preco: 129.90, precoAntigo: null,
       imagem: URL_FOTOS + "c/cc/Nespresso-capsules_AB-01.jpg/500px-Nespresso-capsules_AB-01.jpg",
       descricao: "50 cápsulas de sabores variados, compatíveis com Nespresso.", promocao: false },
-    { id: 4, nome: "Cafeteira Bialetti Moka Express", categoria: "Acessórios", preco: 249.90, precoAntigo: 289.90,
+    { id: 4, nota: 5.0, avaliacoes: 211, nome: "Cafeteira Bialetti Moka Express", categoria: "Acessórios", preco: 249.90, precoAntigo: 289.90,
       imagem: URL_FOTOS + "1/1b/Moka_Pot_%28143327549%29.jpeg/500px-Moka_Pot_%28143327549%29.jpeg",
       descricao: "A clássica cafeteira italiana de alumínio. Faz 6 xícaras.", promocao: true },
-    { id: 5, nome: "Coador Hario V60", categoria: "Acessórios", preco: 89.90, precoAntigo: null,
+    { id: 5, nota: 4.8, avaliacoes: 94, nome: "Coador Hario V60", categoria: "Acessórios", preco: 89.90, precoAntigo: null,
       imagem: URL_FOTOS + "4/42/Hario_V60_dripper_%2830519007832%29.jpg/500px-Hario_V60_dripper_%2830519007832%29.jpg",
       descricao: "Coador japonês de cerâmica, tamanho 02. Ideal para café filtrado.", promocao: false },
-    { id: 6, nome: "Prensa Francesa Inox", categoria: "Acessórios", preco: 159.90, precoAntigo: null,
+    { id: 6, nota: 4.6, avaliacoes: 57, nome: "Prensa Francesa Inox", categoria: "Acessórios", preco: 159.90, precoAntigo: null,
       imagem: URL_FOTOS + "4/44/Stainless_steel_french_press.png/500px-Stainless_steel_french_press.png",
       descricao: "Prensa de aço inoxidável com capacidade de 1 litro.", promocao: false }
 ];
@@ -41,6 +43,16 @@ const cupons = [
     { codigo: "CAFE10",      tipo: "porcentagem", valor: 10, minimo: 0  },
     { codigo: "PRIMEIRA20",  tipo: "porcentagem", valor: 20, minimo: 80 },
     { codigo: "FRETEGRATIS", tipo: "frete",       valor: 0,  minimo: 0  }
+];
+
+// Array de depoimentos de clientes
+const depoimentos = [
+    { nome: "Mariana S.", cidade: "Belo Horizonte - MG", estrelas: 5,
+      texto: "O café em grãos chegou fresquinho, com a data da torra no pacote. Dá para sentir a diferença na xícara!" },
+    { nome: "Carlos A.", cidade: "São Paulo - SP", estrelas: 5,
+      texto: "Comprei a Moka Express e as cápsulas. Entrega rápida e tudo muito bem embalado." },
+    { nome: "Juliana R.", cidade: "Curitiba - PR", estrelas: 4,
+      texto: "Atendimento excelente e preço justo. Já virei cliente fiel do coador V60." }
 ];
 
 // Carrinho: começa vazio e recebe objetos { id, nome, preco, quantidade }
@@ -63,6 +75,13 @@ const mensagemCompra  = document.getElementById("mensagem-compra");
 const formContato     = document.getElementById("form-contato");
 const mensagemContato = document.getElementById("mensagem-contato");
 const botaoTopo       = document.getElementById("voltar-topo");
+const campoBusca      = document.getElementById("campo-busca");
+const nenhumProduto   = document.getElementById("nenhum-produto");
+const avisoCarrinho   = document.getElementById("aviso-carrinho");
+const botoesFiltro    = document.querySelectorAll(".filtro");
+
+// Categoria escolhida nos filtros ("Todos" mostra tudo)
+let categoriaAtual = "Todos";
 
 // ---------- FUNÇÕES ----------
 
@@ -71,19 +90,38 @@ function formatarMoeda(valor) {
     return "R$ " + valor.toFixed(2).replace(".", ",");
 }
 
-// Mostra os produtos na tela usando uma ESTRUTURA DE REPETIÇÃO (for)
-function mostrarProdutos() {
+// Monta as estrelinhas de avaliação (ESTRUTURA DE REPETIÇÃO for)
+function gerarEstrelas(nota) {
+    let estrelas = "";
+    for (let i = 1; i <= 5; i++) {
+        // Math.round arredonda a nota (ex.: 4,6 vira 5 estrelas)
+        if (i <= Math.round(nota)) {
+            estrelas += "★";
+        } else {
+            estrelas += "☆";
+        }
+    }
+    return estrelas;
+}
+
+// Mostra os produtos na tela.
+// Recebe uma lista (array) para poder mostrar só os produtos filtrados.
+function mostrarProdutos(lista) {
     let html = "";
 
-    for (let i = 0; i < produtos.length; i++) {
-        const p = produtos[i];
-        let etiqueta = "";
+    for (let i = 0; i < lista.length; i++) {
+        const p = lista[i];
+        let etiquetas = "";
 
         // ESTRUTURA CONDICIONAL: só mostra a etiqueta se o produto estiver em promoção
         if (p.promocao === true) {
             // Calcula a porcentagem de desconto da promoção
             const porcentagem = Math.round((1 - p.preco / p.precoAntigo) * 100);
-            etiqueta = '<span class="etiqueta">-' + porcentagem + '%</span>';
+            etiquetas += '<span class="etiqueta">' + porcentagem + '% OFF</span>';
+        }
+        // Operador lógico: produto muito bem avaliado E com muitas avaliações
+        if (p.nota >= 4.8 && p.avaliacoes > 100) {
+            etiquetas += '<span class="etiqueta preta">MAIS VENDIDO</span>';
         }
 
         // Se tiver preço antigo, mostra ele riscado (operador ternário)
@@ -91,24 +129,84 @@ function mostrarProdutos() {
             ? `<span class="preco-antigo">${formatarMoeda(p.precoAntigo)}</span>`
             : "";
 
+        // Operações matemáticas: preço no Pix e valor de cada parcela
+        const precoPix = p.preco - (p.preco * DESCONTO_PIX / 100);
+        const valorParcela = p.preco / PARCELAS;
+
         html += `
             <div class="card">
-                ${etiqueta}
-                <img src="${p.imagem}" alt="${p.nome}" loading="lazy">
+                <div class="etiquetas">${etiquetas}</div>
+                <div class="card-imagem">
+                    <img src="${p.imagem}" alt="${p.nome}">
+                </div>
                 <div class="card-corpo">
                     <span class="categoria">${p.categoria}</span>
                     <h3>${p.nome}</h3>
                     <p class="descricao">${p.descricao}</p>
-                    <div class="card-rodape">
-                        <p class="preco">${precoAntigo}${formatarMoeda(p.preco)}</p>
-                        <button class="botao botao-pequeno" onclick="adicionarAoCarrinho(${p.id})">Adicionar</button>
-                    </div>
+                    <p class="estrelas">${gerarEstrelas(p.nota)} <small>(${p.avaliacoes})</small></p>
+                    <p>${precoAntigo}<span class="preco">${formatarMoeda(p.preco)}</span></p>
+                    <p class="parcelas">ou ${PARCELAS}x de ${formatarMoeda(valorParcela)} sem juros</p>
+                    <p class="preco-pix">${formatarMoeda(precoPix)} no Pix (${DESCONTO_PIX}% off)</p>
+                    <button class="botao botao-adicionar" onclick="adicionarAoCarrinho(${p.id})">Adicionar ao carrinho</button>
                 </div>
             </div>
         `;
     }
 
     listaProdutos.innerHTML = html;
+
+    // Mostra a mensagem quando a busca não encontra nada
+    nenhumProduto.style.display = lista.length === 0 ? "block" : "none";
+}
+
+// Deixa o texto em minúsculas e sem acentos (ex.: "Cápsulas" vira "capsulas")
+function normalizarTexto(texto) {
+    return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Filtra os produtos pela categoria escolhida e pelo texto da busca
+function filtrarProdutos() {
+    const textoBusca = normalizarTexto(campoBusca.value.trim());
+
+    const filtrados = produtos.filter(function (produto) {
+        const categoriaOk = categoriaAtual === "Todos" || produto.categoria === categoriaAtual;
+        const buscaOk = normalizarTexto(produto.nome).includes(textoBusca);
+        return categoriaOk && buscaOk;
+    });
+
+    mostrarProdutos(filtrados);
+}
+
+// Mostra os depoimentos dos clientes (repetição com forEach)
+function mostrarDepoimentos() {
+    const lista = document.getElementById("lista-depoimentos");
+    let html = "";
+
+    depoimentos.forEach(function (d) {
+        html += `
+            <div class="depoimento">
+                <p class="estrelas">${gerarEstrelas(d.estrelas)}</p>
+                <p>"${d.texto}"</p>
+                <div class="autor">
+                    <span class="avatar">${d.nome.charAt(0)}</span>
+                    <div><strong>${d.nome}</strong><small>${d.cidade}</small></div>
+                </div>
+            </div>
+        `;
+    });
+
+    lista.innerHTML = html;
+}
+
+// Mostra o aviso "Produto adicionado" por 2 segundos
+let tempoAviso;
+function mostrarAvisoCarrinho(nomeProduto) {
+    avisoCarrinho.textContent = "✔ " + nomeProduto + " adicionado ao carrinho";
+    avisoCarrinho.classList.add("visivel");
+    clearTimeout(tempoAviso);
+    tempoAviso = setTimeout(function () {
+        avisoCarrinho.classList.remove("visivel");
+    }, 2000);
 }
 
 // Procura um produto pelo id
@@ -143,6 +241,7 @@ function adicionarAoCarrinho(id) {
     }
 
     atualizarCarrinho();
+    mostrarAvisoCarrinho(produto.nome);
 }
 
 // Muda a quantidade de um item (+1 ou -1)
@@ -414,6 +513,46 @@ formContato.addEventListener("submit", function (evento) {
     }
 });
 
+// Clique nos botões de categoria
+botoesFiltro.forEach(function (botao) {
+    botao.addEventListener("click", function () {
+        // Tira a classe "ativo" de todos e coloca só no botão clicado
+        botoesFiltro.forEach(function (b) {
+            b.classList.remove("ativo");
+        });
+        botao.classList.add("ativo");
+
+        categoriaAtual = botao.dataset.categoria;
+        filtrarProdutos();
+    });
+});
+
+// Busca: filtra enquanto a pessoa digita (evento "input")
+campoBusca.addEventListener("input", filtrarProdutos);
+
+// Ao apertar Enter na busca, vai até a seção de produtos
+document.getElementById("form-busca").addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    document.getElementById("produtos").scrollIntoView();
+});
+
+// Perguntas frequentes: abre e fecha a resposta ao clicar (acordeão)
+const perguntas = document.querySelectorAll(".faq-pergunta");
+for (const pergunta of perguntas) {
+    pergunta.addEventListener("click", function () {
+        const item = pergunta.parentElement;
+        const resposta = item.querySelector(".faq-resposta");
+
+        if (item.classList.contains("aberto")) {
+            item.classList.remove("aberto");
+            resposta.style.maxHeight = null;
+        } else {
+            item.classList.add("aberto");
+            resposta.style.maxHeight = resposta.scrollHeight + "px";
+        }
+    });
+}
+
 // Mostra o botão "voltar ao topo" depois de rolar 400px
 window.addEventListener("scroll", function () {
     if (window.scrollY > 400) {
@@ -431,5 +570,6 @@ console.log("Compra finalizada?", compraFinalizada, "- tipo:", typeof compraFina
 console.log("Produtos é um array?", Array.isArray(produtos));
 
 carregarCarrinho();
-mostrarProdutos();
+mostrarProdutos(produtos);
+mostrarDepoimentos();
 atualizarCarrinho();
